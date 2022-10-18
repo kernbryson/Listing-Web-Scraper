@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import Scrape from "./Scraper";
 import Home from "./Home"
 import SideBar from "./SideBar"
-const styles = {
-    containerStyles: {
-      width:"84vw",
-      paddingLeft:"0px"
-    },
-  };
+
 
 export default function PortfolioContainer() {
   const [currentPage, setCurrentPage] = useState("Home");
@@ -28,13 +23,12 @@ export default function PortfolioContainer() {
 
   return (
     
-    <div class="row flex-nowrap">
+    <div>
       {/* We are passing the currentPage from state and the function to update it */}
       <SideBar currentPage={currentPage} handlePageChange={handlePageChange} />
       {/* Here we are calling the renderPage method which will return a component  */}
-      <div style={styles.containerStyles}>
       {renderPage()}
-      </div>
+      
     </div>
   );
 }

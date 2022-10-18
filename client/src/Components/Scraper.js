@@ -7,6 +7,8 @@ const homes = [];
 var infoObject = {};
 const Id = uuidv4();
 
+
+
 function Scrape(infoObject) {
   axios
     .get("https://rlselaw.com/property-listing/georgia-property-listings/")

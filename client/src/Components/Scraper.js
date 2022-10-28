@@ -20,18 +20,21 @@ function Scrape(infoObject) {
         const city = $(element).children(".city").text();
         const county = $(element).children(".county").text();
         const bid = $(element).children(".bid").text();
-
+        const date = $(element).children(".date").text();
+        console.log(city)
         infoObject = {
           address: address,
           city: city,
           county: county,
           bid: bid,
+          date:date,
           id: Id,
         };
         homes.push(infoObject);
       });
 
-      console.log(homes);
+      
+ 
     });
 
   return (
@@ -44,6 +47,7 @@ function Scrape(infoObject) {
           <th scope="col">City</th>
           <th scope="col">County</th>
           <th scope="col">Bid</th>
+          <th scope="col">Date</th>
           <th scope="col">    <ReactHTMLTableToExcel
                     id="test-table-xls-button"
                     className="download-table-xls-button btn btn-success"
@@ -61,6 +65,7 @@ function Scrape(infoObject) {
               <td>{home.city}</td>
               <td>{home.county}</td>
               <td>{home.bid}</td>
+              <td>{home.date}</td>
             </tr>
           </tbody>
         );

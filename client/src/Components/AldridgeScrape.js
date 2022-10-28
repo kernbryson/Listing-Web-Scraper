@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import React, { Component } from "react";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import axios from "axios";
 const cheerio = require("cheerio");
 const { v4: uuidv4 } = require("uuid");
@@ -7,11 +7,11 @@ const homes = [];
 var infoObject = {};
 const Id = uuidv4();
 
-
-
 function AldridgeScrape(infoObject) {
   axios
-    .get("https://aldridgepite.com/sale-day-listings-selection/foreclosure-listings-georgia/")
+    .get(
+      "https://aldridgepite.com/sale-day-listings-selection/foreclosure-listings-georgia/"
+    )
     .then((res) => {
       const htmlData = res.data;
       const $ = cheerio.load(htmlData);
@@ -20,6 +20,7 @@ function AldridgeScrape(infoObject) {
         const city = $(element).children(".city").text();
         const county = $(element).children(".county").text();
         const bid = $(element).children(".bid").text();
+        const date = $(element).children(".date").text();
 
         infoObject = {
           address: address,
@@ -27,30 +28,34 @@ function AldridgeScrape(infoObject) {
           county: county,
           bid: bid,
           id: Id,
+          date: date,
         };
         homes.push(infoObject);
       });
 
-      console.log(homes);
+      console.log(date);
     });
 
   return (
-
-
-    <table class="table" id="table-to-xls">
+    <table className="table" id="table-to-xls">
       <thead>
         <tr>
           <th scope="col">Address</th>
           <th scope="col">City</th>
           <th scope="col">County</th>
           <th scope="col">Bid</th>
-          <th scope="col">    <ReactHTMLTableToExcel
-                    id="test-table-xls-button"
-                    className="download-table-xls-button btn btn-success"
-                    table="table-to-xls"
-                    filename="tablexls"
-                    sheet="tablexls"
-                    buttonText="Download"/></th>
+          <th scope="col">Date</th>
+          <th scope="col">
+            {" "}
+            <ReactHTMLTableToExcel
+              id="test-table-xls-button"
+              className="download-table-xls-button btn btn-success"
+              table="table-to-xls"
+              filename="tablexls"
+              sheet="tablexls"
+              buttonText="Download"
+            />
+          </th>
         </tr>
       </thead>
       {homes.map((home) => {
@@ -61,6 +66,7 @@ function AldridgeScrape(infoObject) {
               <td>{home.city}</td>
               <td>{home.county}</td>
               <td>{home.bid}</td>
+              <td>{home.date}</td>
             </tr>
           </tbody>
         );

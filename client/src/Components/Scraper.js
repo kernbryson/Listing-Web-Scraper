@@ -11,7 +11,10 @@ const Id = uuidv4();
 
 function Scrape(infoObject) {
   axios
-    .get("https://rlselaw.com/property-listing/georgia-property-listings/")
+    .get("https://rlselaw.com/property-listing/georgia-property-listings/", {
+      method: "HEAD",
+      mode: "no-cors"
+    })
     .then((res) => {
       const htmlData = res.data;
       const $ = cheerio.load(htmlData);

@@ -10,68 +10,27 @@ const Id = uuidv4();
 function AldridgeScrape(infoObject) {
   axios
     .get(
-      "https://aldridgepite.com/sale-day-listings-selection/foreclosure-listings-georgia/"
+      "https://www.brockandscott.com/foreclosure-sales/?_sft_foreclosure_state=ga"
     )
     .then((res) => {
       const htmlData = res.data;
+      // console.log(res)
+      // console.log(htmlData);
       const $ = cheerio.load(htmlData);
-      $("tr", htmlData).each((index, element) => {
-        const address = $(element).children(".property").text();
+      $("div", htmlData).each((index, element) => {
+        const test = $(element).children(".forecol").text();
         const city = $(element).children(".city").text();
         const county = $(element).children(".county").text();
         const bid = $(element).children(".bid").text();
         const date = $(element).children(".date").text();
-
-        infoObject = {
-          address: address,
-          city: city,
-          county: county,
-          bid: bid,
-          id: Id,
-          date: date,
-        };
-        homes.push(infoObject);
+        console.log(test);
       });
-
-      console.log(date);
     });
 
   return (
-    <table className="table" id="table-to-xls">
-      <thead>
-        <tr>
-          <th scope="col">Address</th>
-          <th scope="col">City</th>
-          <th scope="col">County</th>
-          <th scope="col">Bid</th>
-          <th scope="col">Date</th>
-          <th scope="col">
-            {" "}
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="download-table-xls-button btn btn-success"
-              table="table-to-xls"
-              filename="tablexls"
-              sheet="tablexls"
-              buttonText="Download"
-            />
-          </th>
-        </tr>
-      </thead>
-      {homes.map((home) => {
-        return (
-          <tbody key={home.id}>
-            <tr>
-              <td>{home.address}</td>
-              <td>{home.city}</td>
-              <td>{home.county}</td>
-              <td>{home.bid}</td>
-              <td>{home.date}</td>
-            </tr>
-          </tbody>
-        );
-      })}
-    </table>
+    <div>
+      <h1>TEST</h1>
+    </div>
   );
 }
 

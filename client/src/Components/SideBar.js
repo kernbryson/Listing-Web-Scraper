@@ -20,7 +20,7 @@ function SideBar({ currentPage, handlePageChange }) {
             <a class="nav-link mx-2" onClick={() => handlePageChange("Scrape")} href="#Scrape">Rubin Lublin Scraper</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="#">Pricing</a>
+            <a onClick={() => handlePageChange("AldridgeScrape")} href="#AldridgeScrape"class="nav-link mx-2" >Aldridge Pite Scraper</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

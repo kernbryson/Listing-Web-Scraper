@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Scrape from "./Scraper";
 import Home from "./Home"
 import SideBar from "./SideBar"
-
+import AldridgeScrape from "./AldridgeScrape";
 
 export default function PortfolioContainer() {
   const [currentPage, setCurrentPage] = useState("Home");
@@ -15,8 +15,11 @@ export default function PortfolioContainer() {
     if (currentPage === "Scrape") {
       return <Scrape />;
     }
+    if (currentPage === "AldridgeScrape") {
+      return <AldridgeScrape />;
+    }
 
-    return <Scrape />;
+    return <Home />;
   };
 
   const handlePageChange = (page) => setCurrentPage(page);

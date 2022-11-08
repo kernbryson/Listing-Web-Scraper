@@ -3,10 +3,9 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import axios from "axios";
 const cheerio = require("cheerio");
 const { v4: uuidv4 } = require("uuid");
-const homes = [];
-var infoObject = {};
+const tests = [];
 const Id = uuidv4();
-
+var homeObject={}
 function AldridgeScrape(infoObject) {
   axios
     .get(
@@ -18,19 +17,66 @@ function AldridgeScrape(infoObject) {
       // console.log(htmlData);
       const $ = cheerio.load(htmlData);
       $("div", htmlData).each((index, element) => {
-        const test = $(element).children(".forecol").text();
-        const city = $(element).children(".city").text();
-        const county = $(element).children(".county").text();
-        const bid = $(element).children(".bid").text();
-        const date = $(element).children(".date").text();
-        console.log(test);
+       
+        const address = $(element).children(".forecol").text().split('\n')[10];
+        const county = $(element).children(".forecol").text().split('\n')[0];
+        const bid = $(element).children(".forecol").text().split('\n')[11];
+        const date = $(element).children(".forecol").text().split('\n')[2];
+        const casenum = $(element).children(".forecol").text().split('\n')[8];
+    
+
+     
+        homeObject = {
+          address: address,
+          county: county,
+          bid: bid,
+          date:date,
+          caseNumber:casenum,
+          id: Id,
+        };
+      
+  
+          tests.push(homeObject)
+       
+   
+        console.log(homeObject)
       });
     });
 
   return (
-    <div>
-      <h1>TEST</h1>
-    </div>
+    
+    <table class="table" id="table-to-xls">
+      <thead>
+        <tr>
+          <th scope="col">Address</th>
+          <th scope="col">County</th>
+          <th scope="col">Bid</th>
+          <th scope="col">Date</th>
+          <th scope="col">Case Number</th>
+          <th scope="col">    <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className="download-table-xls-button btn btn-success"
+                    table="table-to-xls"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download"/></th>
+        </tr>
+      </thead>
+      {tests.map((test) => {
+      
+        return (
+          <tbody key={test.id}>
+            <tr>
+              <td>{test.address}</td>
+              <td>{test.county}</td>
+              <td>{test.bid}</td>
+              <td>{test.date}</td>
+              <td>{test.caseNumber}</td>
+            </tr>
+          </tbody>
+        );
+      })}
+    </table>
   );
 }
 

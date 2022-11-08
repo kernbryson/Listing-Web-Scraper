@@ -19,7 +19,7 @@ function Scrape(infoObject) {
       const htmlData = res.data;
       const $ = cheerio.load(htmlData);
       $("tr", htmlData).each((index, element) => {
-        const address = $(element).children(".property").text();
+        const address = $(element).children(".property").text()
         const city = $(element).children(".city").text();
         const county = $(element).children(".county").text();
         const bid = $(element).children(".bid").text();
